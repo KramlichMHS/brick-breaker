@@ -384,8 +384,8 @@ sprites.onOverlap(SpriteKind.ball, SpriteKind.healBlock, function (sprite, other
     music.baDing.play()
 })
 function buildSetBricks () {
-    for (let index = 0; index <= 1; index++) {
-        for (let index2 = 0; index2 < 1; index2++) {
+    for (let index = 0; index <= 6; index++) {
+        for (let index2 = 0; index2 < 4; index2++) {
             createBrick(index * 16 + 32, col * 8 + 24)
             col += 1
         }
