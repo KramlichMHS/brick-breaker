@@ -14,6 +14,7 @@ sprites.onOverlap(SpriteKind.ball, SpriteKind.brick, function (sprite, otherSpri
     info.changeScoreBy(15)
     otherSprite.destroy(effects.ashes, 200)
     sprite.setVelocity(sprite.vx, -1 * sprite.vy)
+    music.playTone(196, music.beat(BeatFraction.Quarter))
 })
 function startGame () {
     info.setScore(0)
@@ -311,6 +312,7 @@ a a a a
     ball3.setPosition(otherSprite.x, otherSprite.y)
     ball3.vy = -50
     ball3.setVelocity(Math.randomRange(-30, 30), -50)
+    music.baDing.play()
 })
 sprites.onOverlap(SpriteKind.ball, SpriteKind.longPowerUp, function (sprite, otherSprite) {
     startBallVar = 2
@@ -328,6 +330,7 @@ sprites.onOverlap(SpriteKind.ball, SpriteKind.longPowerUp, function (sprite, oth
 `, SpriteKind.powerDrop)
     longDrop.setPosition(otherSprite.x, otherSprite.y)
     longDrop.vy = 30
+    music.baDing.play()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.healDrop, function (sprite, otherSprite) {
     if (info.life() < 3) {
@@ -336,12 +339,14 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.healDrop, function (sprite, othe
         info.changeScoreBy(50)
     }
     otherSprite.destroy()
+    music.powerUp.play()
 })
 sprites.onOverlap(SpriteKind.ball, SpriteKind.Player, function (sprite, otherSprite) {
     sprite.setVelocity((sprite.x - otherSprite.x) * 3, -1 * sprite.vy)
     if (sprite.vy > -150) {
         sprite.vy += -5
     }
+    music.playTone(392, music.beat(BeatFraction.Quarter))
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.powerDrop, function (sprite, otherSprite) {
     sprite.setImage(img`
@@ -350,6 +355,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.powerDrop, function (sprite, oth
 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
 `)
+    music.powerUp.play()
     otherSprite.destroy()
     pause(10000)
     sprite.setImage(img`
@@ -375,10 +381,11 @@ sprites.onOverlap(SpriteKind.ball, SpriteKind.healBlock, function (sprite, other
 `, SpriteKind.healDrop)
     healDrop.setPosition(otherSprite.x, otherSprite.y)
     healDrop.vy = 90
+    music.baDing.play()
 })
 function buildSetBricks () {
-    for (let index = 0; index <= 6; index++) {
-        for (let index2 = 0; index2 < 4; index2++) {
+    for (let index = 0; index <= 1; index++) {
+        for (let index2 = 0; index2 < 1; index2++) {
             createBrick(index * 16 + 32, col * 8 + 24)
             col += 1
         }
@@ -760,6 +767,7 @@ game.onUpdate(function () {
     if (ball2.y > 115) {
         startBallVar = 0
         info.changeLifeBy(-1)
+        music.wawawawaa.play()
     }
 })
 forever(function () {
@@ -767,6 +775,7 @@ forever(function () {
         startBallVar = 0
         info.changeScoreBy(100)
         effects.confetti.startScreenEffect()
+        music.magicWand.play()
         pause(2000)
         effects.confetti.endScreenEffect()
         buildSetBricks()
